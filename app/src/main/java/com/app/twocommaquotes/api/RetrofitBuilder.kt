@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit
 
 object RetrofitBuilder {
 
-    private const val BASE_URL = "http://vlpl.lrdevteam.com/api/"
+    private const val BASE_URL = "https://api.quotable.io/"
 
     private val retrofitBuilder by lazy {
         val httpClient = OkHttpClient.Builder()

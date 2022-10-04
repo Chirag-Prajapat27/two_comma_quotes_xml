@@ -10,4 +10,10 @@
     <color name="colorBlack">#000000</color>
     <color name="colorDarkGray">#4D4D4D</color>
     <color name="colorGray">#767676</color>
+
+
+    <color name="colorSoftGray">#E6EAEC</color>
+    <color name="colorSoftDarkGray">#ACB2BD</color>
+
+
 </resources>

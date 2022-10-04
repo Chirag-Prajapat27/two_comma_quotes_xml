@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.LiveData
 import com.app.twocommaquotes.utility.CheckInternetConnection
+import dagger.hilt.android.HiltAndroidApp
 
+@HiltAndroidApp
 class BaseApplication : Application() {
 
     private lateinit var cld: LiveData<Boolean>
@@ -16,10 +18,6 @@ class BaseApplication : Application() {
 
     //any written in this companion object is static you can access this variable using ApplicationLoader.REQUEST_TIMEOUT
     companion object {
-        var enterAnimationFragment: Int = 0
-        var exitAnimationFragment: Int = 0
-        var enterAnimationActivity: Int = 0
-        var exitAnimationActivity: Int = 0
         lateinit var appInstance: BaseApplication
         var byteArray: ByteArray? = null
         @Synchronized

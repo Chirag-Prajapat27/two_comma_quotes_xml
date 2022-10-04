@@ -1,6 +1,7 @@
 package com.app.twocommaquotes.api
 
 import com.app.twocommaquotes.model.BaseModel
+import com.app.twocommaquotes.model.QuoteModel
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -16,5 +17,7 @@ interface ApiService {
     @GET("logout")
     suspend fun logout(): Response<BaseModel<String>>
 
+    @GET("quotes")
+    suspend fun getQuotesList() : Response<BaseModel<QuoteModel>>
 
 }

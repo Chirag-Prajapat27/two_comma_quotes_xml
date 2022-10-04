@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">TwoCommaQuotes</string>
+    <string name="str_no_internet_title">No internet connection found\ncheck your connection</string>
+    <string name="str_try_again">Try Again</string>
 </resources>

@@ -1,30 +1,44 @@
 package com.app.twocommaquotes.api
 
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-object RetrofitBuilder {
+@Module
+@InstallIn(SingletonComponent::class)
+class RetrofitBuilder {
 
-    private const val BASE_URL = "https://api.quotable.io/"
+    @Provides
+    fun providesBaseUrl() : String = "https://api.quotable.io/"
 
-    private val retrofitBuilder by lazy {
-        val httpClient = OkHttpClient.Builder()
-        httpClient.connectTimeout(30, TimeUnit.SECONDS)
+    private val logger = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+
+    @Provides
+    fun okHttpClientBuilder(): OkHttpClient.Builder {
+        return OkHttpClient.Builder().connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(15, TimeUnit.SECONDS)
             .writeTimeout(15, TimeUnit.SECONDS)
-            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+            .addInterceptor(logger)
             .addInterceptor(HeaderInterceptor())
             .addInterceptor(NetworkInterceptor())
-
-        Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(httpClient.build())
-            .build()
     }
 
-    val apiService: ApiService by lazy { retrofitBuilder.create(ApiService::class.java) }
+    @Provides
+    fun retrofitBuilder(baseUrl : String, okHttpClient: OkHttpClient.Builder) : Retrofit =
+
+        Retrofit.Builder()
+            .baseUrl(baseUrl)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(okHttpClient.build())
+            .build()
+
+    @Provides
+    fun apiService(retrofit : Retrofit) : ApiService = retrofit.create(ApiService::class.java)
+
 }

@@ -29,10 +29,12 @@ abstract class BaseRepository {
     private fun <T> handleResponse(response: Response<BaseModel<T>>): Resource<T> {
         return if (response.isSuccessful) {
             response.body()?.let { it ->
-                if (it.result.isEmpty()) {
-                    Resource.Success(message = it.message)
+                if (it.results.toString().isEmpty()) {
+//                    Resource.Success(message = it.statusMessage)
+                    Resource.Success(message = "Successfully ")
                 } else {
-                    Resource.Success(it.result.values.iterator().next(), it.message)
+//                    Resource.Success(it.results, it.statusMessage)
+                    Resource.Success(it.results, "Some think wrong")
                 }
             }!!
         } else {

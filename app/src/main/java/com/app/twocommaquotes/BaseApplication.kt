@@ -14,12 +14,10 @@ class BaseApplication : Application() {
     private var isConnected: Boolean = false
     lateinit var productCartCount: ObservableInt
     lateinit var totalCartQTY: ObservableInt
-    var cartScreenUpdate : Boolean = false
 
     //any written in this companion object is static you can access this variable using ApplicationLoader.REQUEST_TIMEOUT
     companion object {
         lateinit var appInstance: BaseApplication
-        var byteArray: ByteArray? = null
         @Synchronized
         fun getInstance(): BaseApplication {
             return appInstance

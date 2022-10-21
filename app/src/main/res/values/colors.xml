@@ -15,5 +15,7 @@
     <color name="colorSoftGray">#E6EAEC</color>
     <color name="colorSoftDarkGray">#ACB2BD</color>
 
+    <color name="colorTransparent">#00FFFFFF</color>
+
 
 </resources>

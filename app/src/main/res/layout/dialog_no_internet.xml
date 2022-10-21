@@ -36,6 +36,7 @@
             android:background="@drawable/bg_solid_gray_radius_10"
             android:paddingHorizontal="@dimen/_25sdp"
             android:text="@string/str_try_again"
+            android:layout_marginBottom="@dimen/_5sdp"
             android:textColor="@color/colorBlack" />
     </LinearLayout>
 

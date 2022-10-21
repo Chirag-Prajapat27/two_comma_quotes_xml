@@ -1,7 +1,8 @@
 package com.app.twocommaquotes.utility
 
 import android.content.SharedPreferences.Editor
-import androidx.preference.PreferenceManager
+import android.preference.PreferenceManager
+//import androidx.preference.PreferenceManager
 import com.app.twocommaquotes.BaseApplication
 import java.lang.reflect.InvocationTargetException
 import java.lang.reflect.Method

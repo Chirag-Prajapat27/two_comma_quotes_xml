@@ -17,7 +17,11 @@ interface ApiService {
     @GET("logout")
     suspend fun logout(): Response<BaseModel<String>>
 
+/*    @GET("quotes")
+    suspend fun getQuotesList() : Response<BaseModel<List<QuoteModel>>>*/
+
     @GET("quotes")
-    suspend fun getQuotesList() : Response<BaseModel<QuoteModel>>
+    suspend fun getQuotesList() : QuoteModel
+
 
 }

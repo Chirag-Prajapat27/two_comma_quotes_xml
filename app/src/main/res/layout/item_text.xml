@@ -5,9 +5,12 @@
 
     <data>
 
+<!--        <variable-->
+<!--            name="quotesList"-->
+<!--            type="com.app.twocommaquotes.model.Result" />-->
         <variable
             name="quotesList"
-            type="com.app.twocommaquotes.model.Result" />
+            type="String" />
 
     </data>
 
@@ -17,11 +20,12 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvQuoteText"
+            android:textColor="@color/colorWhite"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:lineSpacingExtra="1.5dp"
-            android:text="@{quotesList.content, default=`This is quote Text` }"
+            android:text="@{quotesList, default=`This is quote Text` }"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

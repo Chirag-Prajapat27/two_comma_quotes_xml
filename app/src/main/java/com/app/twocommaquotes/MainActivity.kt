@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.SnapHelper
 import com.app.twocommaquotes.adapter.QuoteAdapter
+import com.app.twocommaquotes.api.Resource
 import com.app.twocommaquotes.api.loadingmanage.NetworkResult
 import com.app.twocommaquotes.databinding.ActivityMainBinding
 import com.app.twocommaquotes.utility.Utility
@@ -31,7 +32,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         this.viewBinding = viewBinding
 
         viewBinding.clRoot.background = this.getDrawable(R.drawable.ic_black_iphone_bg)
-        viewModel.getData()
+//        viewModel.getData()
         addQuotes()
 //        callApi()
         callApiFlow()
@@ -55,7 +56,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             when(response) {
                 is NetworkResult.ConnectionError -> {
                     utility.showNoInternetDialog(this) {
-                        viewModel.getData()
+//                        viewModel.getData()
                     }
                 }
                 is NetworkResult.Error -> {
@@ -87,6 +88,37 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         listQuote.add("man ki bat")
         listQuote.add("japnaam")
 
+    }
+
+    fun callNormalApiCall() {
+
+        viewModel.getQuotesResult.observe(this) { response ->
+            when(response) {
+                is Resource.ConnectionError -> {
+                    utility.showNoInternetDialog(this) {
+                        viewModel.getQuoteNormal()
+                    }
+                }
+                is Resource.Error -> {
+                    viewBinding.clRoot.errorSnack(response.message!!, Snackbar.LENGTH_LONG)
+                    Log.d("MyValueErrNormal","Error ${response.message}")
+                }
+                is Resource.Loading -> {
+
+                }
+                is Resource.Success -> {
+                    response.data.let {
+                        Log.d("MyData", "${it?.results}")
+//                        val snapHelper: SnapHelper = PagerSnapHelper()
+//                        snapHelper.attachToRecyclerView(viewBinding.rvText)
+//                        val adapter = QuoteAdapter()
+//                        viewBinding.rvText.adapter = adapter
+//                        adapter.submitList(it.results)
+                    }
+                }
+            }
+
+        }
     }
 
 /*    private fun callApi() {

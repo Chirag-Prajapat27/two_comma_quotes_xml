@@ -14,8 +14,8 @@ interface ApiService {
 //        @Body multipartBody: MultipartBody
 //    ): Response<BaseModel<String>>
 
-    @GET("logout")
-    suspend fun logout(): Response<BaseModel<String>>
+    @GET("quotes")
+    suspend fun getQuotesNormal(): Response<BaseModel<QuoteModel>>
 
 /*    @GET("quotes")
     suspend fun getQuotesList() : Response<BaseModel<List<QuoteModel>>>*/

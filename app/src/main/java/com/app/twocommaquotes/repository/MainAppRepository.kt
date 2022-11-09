@@ -25,4 +25,8 @@ class MainAppRepository  @Inject constructor(private val service : ApiService) :
            emit(NetworkResult.Success(response))
        }.flowOn(Dispatchers.IO)
     }
+
+    suspend fun getNormalQuotes() = safeApiCall {
+        service.getQuotesNormal()
+    }
 }

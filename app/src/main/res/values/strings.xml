@@ -2,4 +2,12 @@
     <string name="app_name">TwoCommaQuotes</string>
     <string name="str_no_internet_title">No internet connection found\ncheck your connection</string>
     <string name="str_try_again">Try Again</string>
+    <string name="str_timer">00:00</string>
+    <string name="str_timer_end">00 : 00 : 00</string>
+    <string name="str_jam">jam</string>
+    <string name="menit">str_menit</string>
+    <string name="str_menit">menit</string>
+    <string name="str_detik">detik</string>
+    <string name="dash">-</string>
+    <string name="str_something_went_wrong">Something went wrong</string>
 </resources>

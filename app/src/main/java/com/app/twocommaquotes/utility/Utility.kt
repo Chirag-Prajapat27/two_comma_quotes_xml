@@ -40,16 +40,16 @@ import javax.inject.Inject
 //This class is a collection of common methods which are use in daily routine
 class Utility @Inject constructor(){
 
-//    companion object {
-//        private var instance: Utility? = null
-//
-//        fun getInstance(): Utility {
-//            if (instance == null) {
-//                instance = Utility()
-//            }
-//            return instance as Utility
-//        }
-//    }
+    companion object {
+        private var instance: Utility? = null
+
+        fun getInstance(): Utility {
+            if (instance == null) {
+                instance = Utility()
+            }
+            return instance as Utility
+        }
+    }
 
     @SuppressLint("HardwareIds")
     //get device token for different devices

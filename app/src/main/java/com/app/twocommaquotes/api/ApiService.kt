@@ -2,6 +2,7 @@ package com.app.twocommaquotes.api
 
 import com.app.twocommaquotes.model.BaseModel
 import com.app.twocommaquotes.model.QuoteModel
+import com.google.gson.JsonObject
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -22,6 +23,9 @@ interface ApiService {
 
     @GET("quotes")
     suspend fun getQuotesList() : QuoteModel
+
+    @GET("quotes")
+    suspend fun getQuotes() : QuoteModel
 
 
 }

@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.app.twocommaquotes.R
 import com.app.twocommaquotes.databinding.ItemTextBinding
-import com.app.twocommaquotes.model.Result
 
 class QuoteAdapter : ListAdapter< String, QuoteAdapter.MyViewHolder>(DiffUtil()) {
 

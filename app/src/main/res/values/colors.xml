@@ -17,5 +17,12 @@
 
     <color name="colorTransparent">#00FFFFFF</color>
 
+    <color name="grey">#bdbdbd</color>
+    <color name="gray">#D3D3D3</color>
+    <color name="light_gray">#DCDCDC</color>
+    <color name="dark_gray">#505050</color>
+    <color name="red">#f11216</color>
+    <color name="_8cc63f">#8cc63f</color>
+    <color name="lightBlue">#00adee</color>
 
 </resources>

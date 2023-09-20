@@ -8,20 +8,27 @@
 
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/cl_root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".MainActivity">
 
         <androidx.recyclerview.widget.RecyclerView
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:id="@+id/rvText"
-
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/item_text"
-            />
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_text" />
 
-    </LinearLayout>
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivShare"
+            android:layout_marginBottom="@dimen/_45sdp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/ic_share"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"/>
+
+    </RelativeLayout>
 </layout>

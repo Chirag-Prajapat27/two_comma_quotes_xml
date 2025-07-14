@@ -1,4 +1,4 @@
-package com.projectdelta.naruto.util.web
+package com.app.twocommaquotes.naruto.util.web
 
 import android.annotation.TargetApi
 import android.os.Build
@@ -59,13 +59,15 @@ abstract class WebViewClientCompat : WebViewClient() {
 		request: WebResourceRequest,
 		error: WebResourceError
 	) {
-		onReceivedErrorCompat(
-			view,
-			error.errorCode,
-			error.description?.toString(),
-			request.url.toString(),
-			request.isForMainFrame
-		)
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+			onReceivedErrorCompat(
+				view,
+				error.errorCode,
+				error.description?.toString(),
+				request.url.toString(),
+				request.isForMainFrame
+			)
+		}
 	}
 
 	final override fun onReceivedError(

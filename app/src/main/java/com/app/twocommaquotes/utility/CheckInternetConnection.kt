@@ -1,7 +1,6 @@
 package com.app.twocommaquotes.utility
 
 import android.app.Application
-import android.content.ContentValues
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.Network
@@ -19,33 +18,39 @@ class CheckInternetConnection(private val connectivityManager: ConnectivityManag
         appContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     )
 
+    companion object {
+        const val TAG = "ConnectionCheckLog"
+    }
+
     private val networkCallback = object : ConnectivityManager.NetworkCallback() {
 
         override fun onAvailable(network: Network) {
             super.onAvailable(network)
-            Log.d(ContentValues.TAG, "onAvailable: Network is available")
+            Log.d(TAG, "onAvailable: Network is available")
             postValue(true)
         }
 
         override fun onUnavailable() {
             super.onUnavailable()
-            Log.d(ContentValues.TAG, "onUnavailable: Network is not available")
+            Log.d(TAG, "onUnavailable: Network is not available")
             postValue(false)
         }
 
         @RequiresApi(Build.VERSION_CODES.M)
-        override fun onCapabilitiesChanged(network: Network, networkCapabilities: NetworkCapabilities) {
+        override fun onCapabilitiesChanged(
+            network: Network,
+            networkCapabilities: NetworkCapabilities
+        ) {
 
             val isInternet =
                 networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-            Log.d(ContentValues.TAG, "networkCapabilities: $network $networkCapabilities")
+            Log.d(TAG, "networkCapabilities: $network $networkCapabilities")
             val isValidated =
                 networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED)
             if (isValidated) {
-                Log.d(ContentValues.TAG, "hasCapability: $network $networkCapabilities")
+                Log.d(TAG, "hasCapability: $network $networkCapabilities")
             } else {
-                Log.d(ContentValues.TAG,
-                    "Network has No Connection Capability: $network $networkCapabilities")
+                Log.d(TAG, "Network has No Connection Capability: $network $networkCapabilities")
             }
 
             postValue(isInternet && isValidated)
@@ -53,7 +58,7 @@ class CheckInternetConnection(private val connectivityManager: ConnectivityManag
 
         override fun onLost(network: Network) {
             super.onLost(network)
-            Log.d(ContentValues.TAG, "onLost: Network is lost")
+            Log.d(TAG, "Network onLost: $network")
             postValue(false)
         }
     }
@@ -72,4 +77,18 @@ class CheckInternetConnection(private val connectivityManager: ConnectivityManag
         super.onInactive()
         connectivityManager.unregisterNetworkCallback(networkCallback)
     }
+
+    fun getCurrentConnectionStatus(): Boolean {
+        val activeNetwork = connectivityManager.activeNetwork
+        val capabilities = connectivityManager.getNetworkCapabilities(activeNetwork)
+        val hasInternet = capabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
+        val isValidated = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            capabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED) == true
+        } else {
+            true
+        }
+        return hasInternet && isValidated
+    }
+
+
 }

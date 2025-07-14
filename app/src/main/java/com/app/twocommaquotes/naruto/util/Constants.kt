@@ -1,4 +1,4 @@
-package com.projectdelta.naruto.util
+package com.app.twocommaquotes.naruto.util
 
 @Suppress("unused")
 object Constants {

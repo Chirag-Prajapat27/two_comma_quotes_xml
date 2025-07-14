@@ -1,4 +1,4 @@
-package com.lr.vlpl.permission
+package com.app.twocommaquotes.permission
 
 import android.annotation.TargetApi
 import android.app.Activity

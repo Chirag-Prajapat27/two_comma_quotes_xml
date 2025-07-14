@@ -19,3 +19,11 @@ data class Result(
     val length: Int,
     val tags: List<String>
 )
+
+// For new URL (API)
+data class QuoteModelNew(
+    val q: String,
+    val a: String,
+    val c: String,
+    val h: String
+)

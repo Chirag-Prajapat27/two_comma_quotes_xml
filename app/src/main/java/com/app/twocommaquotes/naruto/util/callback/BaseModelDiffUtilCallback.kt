@@ -1,10 +1,10 @@
-package com.projectdelta.naruto.util.callback
+package com.app.twocommaquotes.naruto.util.callback
 
 import android.annotation.SuppressLint
 import androidx.recyclerview.widget.DiffUtil
-import com.projectdelta.naruto.data.model.entity.BaseModel
+import com.app.twocommaquotes.naruto.util.model.BaseModelNaruto
 
-class BaseModelDiffUtilCallback<T : BaseModel> : DiffUtil.ItemCallback<T>() {
+class BaseModelDiffUtilCallback<T : BaseModelNaruto> : DiffUtil.ItemCallback<T>() {
 	override fun areItemsTheSame(oldItem: T, newItem: T): Boolean {
 		return oldItem.id == newItem.id
 	}

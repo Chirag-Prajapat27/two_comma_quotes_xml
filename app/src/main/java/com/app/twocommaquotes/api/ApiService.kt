@@ -1,13 +1,21 @@
 package com.app.twocommaquotes.api
 
-import com.app.twocommaquotes.model.BaseModel
-import com.app.twocommaquotes.model.QuoteModel
+import com.app.twocommaquotes.model.QuoteModelNew
 import retrofit2.Response
 import retrofit2.http.*
 
 interface ApiService {
 
-//    @Headers("Accept:application/json")
+    @GET("quotes")
+    suspend fun getQuotesNormal(): Response<List<QuoteModelNew>>
+
+
+// Below all api call is older version technique Practice for other api call methods
+
+/*    *//*    @GET("quotes")
+        suspend fun getQuotesList() : Response<BaseModel<List<QuoteModel>>>*//*
+
+    //    @Headers("Accept:application/json")
 //    @POST("register")
 //    suspend fun createUser(
 //        @Header("Content-Type") contentType: String,
@@ -15,13 +23,9 @@ interface ApiService {
 //    ): Response<BaseModel<String>>
 
     @GET("quotes")
-    suspend fun getQuotesNormal(): Response<BaseModel<QuoteModel>>
-
-/*    @GET("quotes")
-    suspend fun getQuotesList() : Response<BaseModel<List<QuoteModel>>>*/
+    suspend fun getQuotesList(): QuoteModel
 
     @GET("quotes")
-    suspend fun getQuotesList() : QuoteModel
-
+    suspend fun getQuotes(): QuoteModel*/
 
 }

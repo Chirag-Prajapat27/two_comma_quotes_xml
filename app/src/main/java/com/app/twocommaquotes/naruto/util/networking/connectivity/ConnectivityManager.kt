@@ -1,4 +1,4 @@
-package com.projectdelta.naruto.util.networking.connectivity
+package com.app.twocommaquotes.naruto.util.networking.connectivity
 
 
 import androidx.lifecycle.MutableLiveData

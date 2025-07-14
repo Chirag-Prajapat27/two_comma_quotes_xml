@@ -1,4 +1,4 @@
-package com.lr.vlpl.permission
+package com.app.twocommaquotes.permission
 
 import android.content.Context
 import android.widget.Toast

@@ -1,4 +1,3 @@
 package com.app.twocommaquotes.utility
 
-class Constant {
-}
+const val QR_CODE_ICON_SIZE = 100

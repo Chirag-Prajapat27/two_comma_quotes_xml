@@ -1,5 +1,5 @@
-package com.projectdelta.naruto.data.model.entity
+package com.app.twocommaquotes.naruto.util.model
 
-abstract class BaseModel {
+abstract class BaseModelNaruto {
 	abstract val id: String
 }

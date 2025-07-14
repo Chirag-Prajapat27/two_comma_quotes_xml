@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
-<!--        <variable-->
-<!--            name="quotesList"-->
-<!--            type="com.app.twocommaquotes.model.Result" />-->
         <variable
             name="quotesList"
             type="String" />
 
+        <import type="android.text.Html" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,13 +17,14 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvQuoteText"
-            android:textColor="@color/colorWhite"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:lineSpacingExtra="1.5dp"
-            android:text="@{quotesList, default=`This is quote Text` }"
+            android:paddingHorizontal="@dimen/_16sdp"
+            android:text="@{Html.fromHtml(String.format(quotesList), Html.FROM_HTML_MODE_COMPACT), default=`This is quote Text`}"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/colorWhite"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

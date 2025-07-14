@@ -1,10 +1,10 @@
-package com.projectdelta.naruto.util.networking.page
+package com.app.twocommaquotes.naruto.util.networking.page
 
 import androidx.paging.PagingConfig
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.projectdelta.naruto.data.model.entity.BaseModel
-import com.projectdelta.naruto.util.networking.ApiResult
+import com.app.twocommaquotes.naruto.util.model.BaseModelNaruto
+import com.app.twocommaquotes.naruto.util.networking.ApiResult
 import timber.log.Timber
 
 /**
@@ -37,7 +37,7 @@ import timber.log.Timber
  * @param endPoint a suspend HTTP request endpoint
  * @param filters a suspend filter lambda for filtering data
  */
-class PagingSource<T : BaseModel>(
+class PagingSource<T : BaseModelNaruto>(
 	private val endPoint: suspend (Int) -> ApiResult<PageResult<T?>>,
 	private val filters: suspend (T) -> Boolean = { true }
 ) : PagingSource<Int, T>() {

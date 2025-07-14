@@ -1,6 +1,6 @@
 @file:Suppress("unused")
 
-package com.projectdelta.naruto.util.system.lang
+package com.app.twocommaquotes.naruto.util.system.lang
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
@@ -26,9 +26,9 @@ import androidx.core.view.marginBottom
 import androidx.core.view.updatePadding
 import androidx.interpolator.view.animation.LinearOutSlowInInterpolator
 import androidx.recyclerview.widget.RecyclerView
+import com.app.twocommaquotes.naruto.util.Constants.CLICK_COLOR_CHANGE_TIME
+import com.app.twocommaquotes.naruto.util.callback.TodoCallback
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.projectdelta.naruto.util.Constants.CLICK_COLOR_CHANGE_TIME
-import com.projectdelta.naruto.util.callback.TodoCallback
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

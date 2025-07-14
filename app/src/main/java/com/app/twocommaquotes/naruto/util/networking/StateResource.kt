@@ -1,4 +1,4 @@
-package com.projectdelta.naruto.util.networking
+package com.app.twocommaquotes.naruto.util.networking
 
 data class StateResource(
 	val status: Status,

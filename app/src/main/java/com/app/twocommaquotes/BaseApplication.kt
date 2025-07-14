@@ -10,10 +10,10 @@ import dagger.hilt.android.HiltAndroidApp
 @HiltAndroidApp
 class BaseApplication : Application() {
 
-    private lateinit var cld: LiveData<Boolean>
+    private lateinit var cld: CheckInternetConnection
     private var isConnected: Boolean = false
-    lateinit var productCartCount: ObservableInt
-    lateinit var totalCartQTY: ObservableInt
+//    lateinit var productCartCount: ObservableInt
+//    lateinit var totalCartQTY: ObservableInt
 
     //any written in this companion object is static you can access this variable using ApplicationLoader.REQUEST_TIMEOUT
     companion object {
@@ -27,9 +27,14 @@ class BaseApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         appInstance = this
-        productCartCount = ObservableInt(0)
-        totalCartQTY = ObservableInt(0)
-        cld = CheckInternetConnection(this)
+//        productCartCount = ObservableInt(0)
+//        totalCartQTY = ObservableInt(0)
+
+        val connectionLiveData = CheckInternetConnection(this)
+        cld = connectionLiveData
+
+        isConnected = connectionLiveData.getCurrentConnectionStatus()
+
         observeConnectionStatus()
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
     }
@@ -39,8 +44,8 @@ class BaseApplication : Application() {
     }
 
     private fun observeConnectionStatus() {
-        cld.observeForever { t ->
-            isConnected = t!!
+        cld.observeForever { connected ->
+            isConnected = connected ?: false
         }
     }
 }

@@ -40,16 +40,16 @@ import javax.inject.Inject
 //This class is a collection of common methods which are use in daily routine
 class Utility @Inject constructor(){
 
-//    companion object {
-//        private var instance: Utility? = null
-//
-//        fun getInstance(): Utility {
-//            if (instance == null) {
-//                instance = Utility()
-//            }
-//            return instance as Utility
-//        }
-//    }
+    companion object {
+        private var instance: Utility? = null
+
+        fun getInstance(): Utility {
+            if (instance == null) {
+                instance = Utility()
+            }
+            return instance as Utility
+        }
+    }
 
     @SuppressLint("HardwareIds")
     //get device token for different devices
@@ -84,7 +84,7 @@ class Utility @Inject constructor(){
             val info = BaseApplication.getInstance().packageManager.getPackageInfo(
                 BaseApplication.getInstance().packageName, PackageManager.GET_SIGNATURES
             )
-            for (signature in info.signatures) {
+            for (signature in info.signatures!!) {
                 val md = MessageDigest.getInstance("SHA")
                 md.update(signature.toByteArray())
 
@@ -194,7 +194,7 @@ class Utility @Inject constructor(){
         try {
             val pInfo = BaseApplication.getInstance()
                 .packageManager.getPackageInfo(BaseApplication.getInstance().packageName, 0)
-            version = pInfo.versionName
+            version = pInfo.versionName.toString()
         } catch (e: Exception) {
             e.printStackTrace()
         }

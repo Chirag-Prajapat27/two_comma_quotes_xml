@@ -1,4 +1,4 @@
-package com.projectdelta.naruto.util.networking
+package com.app.twocommaquotes.naruto.util.networking
 
 import retrofit2.Call
 import retrofit2.Callback

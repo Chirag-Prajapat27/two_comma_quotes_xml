@@ -15,7 +15,8 @@ import retrofit2.Response
 abstract class BaseRepository {
 
     suspend fun <T> safeApiCall(
-        apiCall: suspend () -> Response<BaseModel<T>>,
+        apiCall: suspend () -> Response<T>,
+//        apiCall: suspend () -> Response<BaseModel<T>>,  // When Using BaseModel
     ): Resource<T> {
         return withContext(Dispatchers.IO) {
             try {
@@ -26,15 +27,18 @@ abstract class BaseRepository {
         }
     }
 
-    private fun <T> handleResponse(response: Response<BaseModel<T>>): Resource<T> {
+//    private fun <T> handleResponse(response: Response<BaseModel<T>>): Resource<T> {  // When Using BaseModel
+    private fun <T> handleResponse(response: Response<T>): Resource<T> {
         return if (response.isSuccessful) {
             response.body()?.let { it ->
-                if (it.results.toString().isEmpty()) {
+//                if (it.results.toString().isEmpty()) { // When Using BaseModel
+                if (it.toString().isEmpty()) {
 //                    Resource.Success(message = it.statusMessage)
                     Resource.Success(message = "Successfully ")
                 } else {
 //                    Resource.Success(it.results, it.statusMessage)
-                    Resource.Success(it.results, "Some think wrong")
+//                    Resource.Success(it.results, "Some think wrong") // When Using BaseModel
+                    Resource.Success(it, "Some think wrong")
                 }
             }!!
         } else {

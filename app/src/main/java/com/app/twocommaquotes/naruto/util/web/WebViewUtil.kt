@@ -1,6 +1,6 @@
 @file:Suppress("unused")
 
-package com.projectdelta.naruto.util.web
+package com.app.twocommaquotes.naruto.util.web
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -41,7 +41,7 @@ fun WebView.setDefaultSettings() {
 		javaScriptEnabled = true
 		domStorageEnabled = true
 		databaseEnabled = true
-		setAppCacheEnabled(true)
+//		setAppCacheEnabled(true)
 		useWideViewPort = true
 		loadWithOverviewMode = true
 		cacheMode = WebSettings.LOAD_DEFAULT

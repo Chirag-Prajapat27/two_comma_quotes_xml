@@ -1,6 +1,6 @@
 @file:Suppress("unused")
 
-package com.projectdelta.naruto.util.system.lang
+package com.app.twocommaquotes.naruto.util.system.lang
 
 import android.annotation.SuppressLint
 import android.app.ActivityManager
@@ -44,7 +44,8 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.findNavController
-import com.projectdelta.naruto.R
+
+
 import kotlin.math.roundToInt
 
 /**
@@ -312,7 +313,7 @@ fun Context.openInBrowser(uri: Uri, @ColorInt toolbarColor: Int? = null) {
 		val intent = CustomTabsIntent.Builder()
 			.setDefaultColorSchemeParams(
 				CustomTabColorSchemeParams.Builder()
-					.setToolbarColor(toolbarColor ?: getResourceColor(R.attr.colorPrimary))
+					.setToolbarColor(toolbarColor ?: getResourceColor(androidx.appcompat.R.attr.colorPrimary))
 					.build()
 			)
 			.build()

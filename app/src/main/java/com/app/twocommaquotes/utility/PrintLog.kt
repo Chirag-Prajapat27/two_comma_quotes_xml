@@ -34,7 +34,6 @@ object PrintLog {
      * This is a simplest method to print log , message will be defined
      * by the developer.
      *
-     *
      * If developer wants to save log on sdcard, then it is possible
      * using the append method.
      *

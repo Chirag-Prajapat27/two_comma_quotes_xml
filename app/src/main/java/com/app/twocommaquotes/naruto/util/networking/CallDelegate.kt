@@ -1,4 +1,4 @@
-package com.projectdelta.naruto.util.networking
+package com.app.twocommaquotes.naruto.util.networking
 
 import okhttp3.Request
 import okio.Timeout

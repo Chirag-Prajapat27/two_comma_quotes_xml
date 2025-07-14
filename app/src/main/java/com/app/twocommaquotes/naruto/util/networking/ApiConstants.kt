@@ -1,10 +1,8 @@
-package com.projectdelta.naruto.util.networking
-
-import com.projectdelta.naruto.BuildConfig
+package com.app.twocommaquotes.naruto.util.networking
 
 @Suppress("unused")
 object ApiConstants {
-	const val BASE_URL = BuildConfig.API_BASE_URL
+//	const val BASE_URL = BuildConfig.API_BASE_URL
 
 	const val FANDOM_URL = "https://naruto.fandom.com/wiki/"
 

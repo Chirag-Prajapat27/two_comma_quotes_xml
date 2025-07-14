@@ -1,5 +1,6 @@
 package com.app.twocommaquotes.api
 
+import com.app.twocommaquotes.BuildConfig
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -9,29 +10,37 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 class RetrofitBuilder {
 
     @Provides
-    fun providesBaseUrl() : String = "https://api.quotable.io/"
-
-    private val logger = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+    @Singleton
+    fun providesBaseUrl(): String = BuildConfig.BASE_URL
 
     @Provides
-    fun okHttpClientBuilder(): OkHttpClient.Builder {
+    @Singleton
+    fun provideLoggingInterceptor(): HttpLoggingInterceptor =
+        HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
+
+//    private val logger = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+
+    @Provides
+    @Singleton
+    fun okHttpClientBuilder(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient.Builder {
         return OkHttpClient.Builder().connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(15, TimeUnit.SECONDS)
             .writeTimeout(15, TimeUnit.SECONDS)
-            .addInterceptor(logger)
+            .addInterceptor(loggingInterceptor)
             .addInterceptor(HeaderInterceptor())
             .addInterceptor(NetworkInterceptor())
     }
 
     @Provides
-    fun retrofitBuilder(baseUrl : String, okHttpClient: OkHttpClient.Builder) : Retrofit =
-
+    @Singleton
+    fun retrofitBuilder(baseUrl: String, okHttpClient: OkHttpClient.Builder): Retrofit =
         Retrofit.Builder()
             .baseUrl(baseUrl)
             .addConverterFactory(GsonConverterFactory.create())
@@ -39,6 +48,7 @@ class RetrofitBuilder {
             .build()
 
     @Provides
-    fun apiService(retrofit : Retrofit) : ApiService = retrofit.create(ApiService::class.java)
+    @Singleton
+    fun apiService(retrofit: Retrofit): ApiService = retrofit.create(ApiService::class.java)
 
 }

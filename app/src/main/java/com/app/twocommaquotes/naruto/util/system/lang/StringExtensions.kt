@@ -1,6 +1,6 @@
 @file:Suppress("unused")
 
-package com.projectdelta.naruto.util.system.lang
+package com.app.twocommaquotes.naruto.util.system.lang
 
 import java.util.Locale
 

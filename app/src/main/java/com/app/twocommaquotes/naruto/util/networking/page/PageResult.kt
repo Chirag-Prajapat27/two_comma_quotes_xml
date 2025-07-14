@@ -1,9 +1,9 @@
-package com.projectdelta.naruto.util.networking.page
+package com.app.twocommaquotes.naruto.util.networking.page
 
+import com.app.twocommaquotes.naruto.util.model.BaseModelNaruto
 import com.google.gson.annotations.SerializedName
-import com.projectdelta.naruto.data.model.entity.BaseModel
 
-data class PageResult<T : BaseModel?>(
+data class PageResult<T : BaseModelNaruto?>(
 	@SerializedName("content") var content: List<T>,
 	@SerializedName("pageable") var pageable: CustomResponsePageable,
 	@SerializedName("totalPages") var totalPages: Int,

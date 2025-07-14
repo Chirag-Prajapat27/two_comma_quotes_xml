@@ -17,6 +17,13 @@
         <!-- Customize your theme here. -->
     </style>
 
+
+    <style name="DialogTheme" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+
     <style name="textStyleRegular8">
         <item name="android:textSize">8sp</item>
         <item name="android:fontFamily">@font/inter_regular</item>

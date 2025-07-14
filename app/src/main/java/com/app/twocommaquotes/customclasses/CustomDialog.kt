@@ -1,9 +1,9 @@
-package com.chirag.demo.customclasses
+package com.app.twocommaquotes.customclasses
 
 import android.app.Activity
 import android.app.Dialog
 import android.widget.TextView
-import com.chirag.demo.R
+import com.app.twocommaquotes.R
 
 //This class is use to display progressbar when api get response from server
 class CustomDialog private constructor() {

@@ -1,4 +1,4 @@
-package com.getplus.application.base.utils
+package com.app.twocommaquotes.utility
 
 import android.app.Activity
 import android.content.Context
@@ -7,10 +7,12 @@ import android.graphics.*
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.net.Uri
+import android.nfc.Tag
 import android.os.*
 import android.text.*
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
+import android.util.Log
 import android.util.Patterns
 import android.util.TypedValue
 import android.view.*
@@ -30,27 +32,9 @@ import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.viewpager.widget.ViewPager
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.request.transition.DrawableCrossFadeFactory
-import com.getplus.application.R
-import com.getplus.application.base.application.AppController
-import com.getplus.application.base.view.activity.BaseActivity
-import com.getplus.application.base.view.fragment.BaseFragment
-import com.jakewharton.rxbinding.view.RxView
-import com.skydoves.balloon.Balloon
-import kotlinx.android.synthetic.main.layout_campaign_story_inshorts.*
-import kotlinx.android.synthetic.main.layout_donation_select_points.*
-import kotlinx.android.synthetic.main.partner_name.*
-import kotlinx.android.synthetic.main.partner_name.view.*
-import org.aviran.cookiebar2.CookieBar
+import com.app.twocommaquotes.BaseApplication
+import com.app.twocommaquotes.R
 import timber.log.Timber
 import java.io.BufferedReader
 import java.text.DecimalFormat
@@ -59,11 +43,10 @@ import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 import java.util.regex.Pattern
-import kotlin.math.roundToInt
 
-inline fun <reified T : Any> String?.toKotlinObject(): T {
-    return AppController.instance.mGsonProvider.provideGson().fromJson(this, T::class.java)
-}
+/*inline fun <reified T : Any> String?.toKotlinObject(): T {
+    return BaseApplication.getInstance().mGsonProvider.provideGson().fromJson(this, T::class.java)
+}*/
 
 /**
  * @param clickablePart Clickable string, a part of complete text.
@@ -79,10 +62,12 @@ fun SpannableString.addClickListener(clickablePart: String, onClickListener: () 
         }
     }
     val clickablePartStart = indexOf(clickablePart)
-    setSpan(clickableSpan,
-            clickablePartStart,
-            clickablePartStart + clickablePart.length,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+    setSpan(
+        clickableSpan,
+        clickablePartStart,
+        clickablePartStart + clickablePart.length,
+        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+    )
     return this
 }
 
@@ -128,7 +113,7 @@ fun TextView?.startTimer(seconds: Long, onFinishListener: () -> Unit): CountDown
     val millisInFuture = seconds * 1000
     return object : CountDownTimer(millisInFuture, 1000) {
         override fun onFinish() {
-            textView?.text = textView?.resources?.getText(R.string.timer)
+            textView?.text = textView?.resources?.getText(R.string.str_timer)
             onFinishListener.invoke()
         }
 
@@ -163,7 +148,7 @@ fun TextView?.startTimerHHMMSS(seconds: Long, onClickListener: () -> Unit) {
         val millisInFuture = seconds * 1000
         object : CountDownTimer(millisInFuture, 1000) {
             override fun onFinish() {
-                textView?.text = textView?.resources?.getText(R.string.timer)
+                textView?.text = textView?.resources?.getText(R.string.str_timer)
                 onClickListener.invoke()
             }
 
@@ -186,14 +171,14 @@ fun TextView?.startTimerWithText(seconds: Long, mContext: Context, timerComplete
         val millisInFuture = seconds * 1000
         object : CountDownTimer(millisInFuture, 1000) {
             override fun onFinish() {
-                textView?.text = textView?.resources?.getText(R.string.timer_end)
+                textView?.text = textView?.resources?.getText(R.string.str_timer_end)
                 timerCompleted.invoke(Unit)
             }
 
             override fun onTick(millis: Long) {
-                val ms = String.format("%02d %s: %02d %s: %02d %s", TimeUnit.MILLISECONDS.toHours(millis), mContext.getString(R.string.jam),
-                        TimeUnit.MILLISECONDS.toMinutes(millis) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)), mContext.getString(R.string.menit),
-                        TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)), mContext.getString(R.string.detik))
+                val ms = String.format("%02d %s: %02d %s: %02d %s", TimeUnit.MILLISECONDS.toHours(millis), mContext.getString(R.string.str_jam),
+                        TimeUnit.MILLISECONDS.toMinutes(millis) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)), mContext.getString(R.string.str_menit),
+                        TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)), mContext.getString(R.string.str_detik))
                 textView?.text = ms
             }
         }.start()
@@ -275,13 +260,13 @@ fun AppCompatActivity.addFragment(fragment: Fragment?, frameId: Int, tag: String
     }, isAddToBackStack)
 }
 
-fun BaseFragment.addFragment(fragment: Fragment?, frameId: Int, tag: String? = null, isAddToBackStack: Boolean = false) {
+/*fun BaseFragment.addFragment(fragment: Fragment?, frameId: Int, tag: String? = null, isAddToBackStack: Boolean = false) {
     childFragmentManager.inTransaction({
         fragment?.let {
             add(frameId, fragment, tag)
         }
     }, isAddToBackStack)
-}
+}*/
 
 /**
  * removeFragment
@@ -411,7 +396,7 @@ fun AppCompatActivity.setStatusBarWithCustomColour(color: Int? = null) {
     color?.let {
         window.statusBarColor = it
     } ?: kotlin.run {
-        window.statusBarColor = ContextCompat.getColor(this, R.color.colorPrimary)
+        window.statusBarColor = ContextCompat.getColor(this, R.color.colorWhite)
     }
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
         window.insetsController?.let {
@@ -476,7 +461,7 @@ val BufferedReader.lines: Iterator<String?>
     }
 
 fun Context.showOOPSToast() {
-    Toast.makeText(this, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show()
+    Toast.makeText(this, getString(R.string.str_something_went_wrong), Toast.LENGTH_SHORT).show()
 }
 
 fun Double.getFormattedDoubleString() =
@@ -485,12 +470,6 @@ fun Double.getFormattedDoubleString() =
         else
             String.format("%d", this.toLong())
 
-
-fun SwipeRefreshLayout.disableSwipeToRefresh() {
-    if (isRefreshing) {
-        isRefreshing = false
-    }
-}
 
 /**
  * <html><body><h4>Description</h4><font color='#868686'>Shabu-shabu is a Japanese cooking style where dinners cook thin slices of meat quickly in boiling broth and then dip them in sauce.</font><h4>How to Redeem</h4><font color='#868686'>1. Integer egestas scelerisque felis id auctor. Praesent sit amet volutpatsem.daksdkajdskajdkajkjskldjakldjlakdj<br>2.Aliquam varius, ipsum eget elementum     rutrum, tortor ligula vehicula elit<br>3. Tortor ligula vehicula elit, elementum eugiat quam diam vel nisi. Donec pretium.</font></body></html>
@@ -521,25 +500,25 @@ fun String.formatNumberWithDots(exceptionListener: () -> Unit = {}): String {
  * returns a bitmap with background and getpluslogo above it
  */
 fun Context?.getLogoWithBackgroundBitmap(@ColorRes backgroundColorId: Int): Bitmap {
-    val bitmap = Bitmap.createBitmap(QR_CODE_GET_PLUS_ICON_SIZE, QR_CODE_GET_PLUS_ICON_SIZE, Bitmap.Config.ARGB_8888)
+    val bitmap = Bitmap.createBitmap(100, 100, Bitmap.Config.ARGB_8888)
     val canvas = Canvas(bitmap)
     val paint = Paint()
     this?.let { paint.color = ContextCompat.getColor(it, backgroundColorId) }
     paint.style = Paint.Style.FILL
     canvas.drawPaint(paint)
     this?.let {
-        val getPlusLogoBitmap = getGetPlusLogoBitmap()
+        val getPlusLogoBitmap = getLogoBitmap()
         canvas.drawBitmap(getPlusLogoBitmap, (canvas.width - getPlusLogoBitmap.width) / 2f, (canvas.height - getPlusLogoBitmap.height) / 2f, null)
     }
     return bitmap
 }
 
 /**
- * returns a bitmap of getplus logo
+ * returns a bitmap of logo
  */
-fun Context.getGetPlusLogoBitmap(): Bitmap {
-    val iconBitmap = BitmapFactory.decodeResource(resources, R.drawable.ic_getplus_small)
-    return Bitmap.createScaledBitmap(iconBitmap, QR_CODE_GET_PLUS_ICON_SIZE, QR_CODE_GET_PLUS_ICON_SIZE, false)
+fun Context.getLogoBitmap(): Bitmap {
+    val iconBitmap = BitmapFactory.decodeResource(resources, R.drawable.ic_launcher_foreground)
+    return Bitmap.createScaledBitmap(iconBitmap, 100, 100, false)
 }
 
 /**
@@ -575,60 +554,6 @@ fun Context.dpToPx(dp: Float): Float {
     return dp * resources.displayMetrics.density
 }
 
-fun Context.loadThumbnail(url: String?, imgView: ImageView,
-                          isRoundedCornerRequired: Boolean = false,
-                          isPlaceHolderRequired: Boolean = true,
-                          onLoadListener: () -> Unit = {}) {
-    val factory: DrawableCrossFadeFactory = DrawableCrossFadeFactory.Builder().setCrossFadeEnabled(true).build()
-    var glideRequest = GlideApp.with(this).load(url)
-            .transition(DrawableTransitionOptions.withCrossFade(factory))
-            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-            .listener(CustomGlideResourceListener(onLoadListener))
-    if (isPlaceHolderRequired) {
-        glideRequest = glideRequest.apply(RequestOptions.placeholderOf(R.drawable.vector_placeholder_thumbnail))
-    }
-    if (isRoundedCornerRequired) {
-        glideRequest = glideRequest.transforms(RoundedCorners(this.dpToPx(ROUNDED_CORNER_RADIUS).roundToInt()))
-    }
-    glideRequest.into(imgView)
-}
-
-fun Context.loadBanner(url: String?, imgView: ImageView, isRoundedCornerRequired: Boolean = false,
-                       transformation: BitmapTransformation? = null,
-                       requestListener: RequestListener<Drawable>? = null) {
-    url?.let {
-        val glideRequest = GlideApp.with(this).load(url)
-                .apply(RequestOptions().placeholder(R.drawable.vector_placeholder_banner))
-                .transition(DrawableTransitionOptions.withCrossFade())
-                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-        transformation?.let {
-            glideRequest.transform(transformation)
-        }
-        if (isRoundedCornerRequired)
-            glideRequest.transforms(RoundedCorners(this.dpToPx(ROUNDED_CORNER_RADIUS).roundToInt()))
-        requestListener?.let {
-            glideRequest.listener(it)
-        }
-        glideRequest.into(imgView)
-    }
-}
-
-fun Context.loadImageBitmapSync(url: String?): Bitmap {
-    return Glide.with(this)
-            .asBitmap()
-            .load(url)
-            .submit()
-            .get()
-}
-
-fun ImageView.loadBanner(url: String?, onLoadListener: () -> Unit = {}) {
-    url?.let {
-        val glideRequest = GlideApp.with(this).load(url)
-                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-                .listener(CustomGlideResourceListener(onLoadListener))
-        glideRequest.into(this)
-    }
-}
 
 fun ImageView.loadFromAsset(url: String?) {
     url?.let {
@@ -741,7 +666,7 @@ fun View.getViewHeight(): Int {
     return this.measuredHeight
 }
 
-fun Activity.setCookie(message: String, titleId: Int = R.string.success, backgroundColorId: Int = R.color._8cc63f,
+/*fun Activity.setCookie(message: String, titleId: Int = R.string.success, backgroundColorId: Int = R.color._8cc63f,
                        drawable: Int = R.drawable.ic_img_toast_success, cookieDismissListener: (() -> Unit) = {}) {
     CookieBar.dismiss(this)
     (this as BaseActivity).disableBackPress(true)
@@ -758,7 +683,7 @@ fun Activity.setCookie(message: String, titleId: Int = R.string.success, backgro
         cookieDismissListener.invoke()
     }, 2000L)
 
-}
+}*/
 
 fun Context.toast(msg: String, duration: Int = Toast.LENGTH_SHORT) {
     Toast.makeText(this, msg, duration).show()
@@ -818,32 +743,11 @@ fun String.changeDecimalToThreeDot(): String {
 
 fun String.removePhonePrefix(): String {
     return when {
-        startsWith("62") -> substring(2)
-        startsWith("+62 ") -> substring(4)
-        startsWith("+62") -> substring(3)
+        startsWith("91") -> substring(2)
+        startsWith("+91 ") -> substring(4)
+        startsWith("+91") -> substring(3)
         startsWith("0") -> substring(1)
         else -> this
-    }
-}
-
-fun String.changeTitleFromEnglishToBahasa(mContext: Context): String {
-    return when (this) {
-        mContext.getString(R.string.title_mr) -> mContext.getString(R.string.title_mr_bahasa)
-        mContext.getString(R.string.title_mr_without) -> mContext.getString(R.string.title_mr_bahasa)
-        mContext.getString(R.string.title_mrs) -> mContext.getString(R.string.title_mrs_bahasa)
-        mContext.getString(R.string.title_mrs_without) -> mContext.getString(R.string.title_mrs_bahasa)
-        mContext.getString(R.string.title_ms) -> mContext.getString(R.string.title_ms_bahasa)
-        mContext.getString(R.string.title_ms_without) -> mContext.getString(R.string.title_ms_bahasa)
-        else -> return this
-    }
-}
-
-fun String.changeTitleFromBahasaToEnglish(mContext: Context): String {
-    return when (this) {
-        mContext.getString(R.string.title_mr_bahasa) -> mContext.getString(R.string.title_mr)
-        mContext.getString(R.string.title_mrs_bahasa) -> mContext.getString(R.string.title_mrs)
-        mContext.getString(R.string.title_ms_bahasa) -> mContext.getString(R.string.title_ms)
-        else -> mContext.getString(R.string.title_mr)
     }
 }
 
@@ -886,16 +790,6 @@ inline fun <T : Fragment> T.withArgs(
     arguments = Bundle().apply(argsBuilder)
 }
 
-fun View.setOnClickListenerWithDebounce(
-        debounceTimeInMillis: Long = 500L, block: () -> Unit
-) {
-    RxView.clicks(this).throttleFirst(
-            debounceTimeInMillis, TimeUnit.MILLISECONDS
-    ).subscribe {
-        block()
-    }
-}
-
 fun EditText.setonCurrencyChangeListener() {
     addTextChangedListener(object : TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -918,14 +812,6 @@ fun EditText.setonCurrencyChangeListener() {
     })
 }
 
-fun EditText.hasFocusChangeListener() {
-    this.setOnFocusChangeListener { v, hasFocus ->
-        if (hasFocus)
-            v.setBackgroundResource(R.drawable.ic_rect_round_border_blue_padding)
-        else
-            v.setBackgroundResource(R.drawable.ic_rect_round_border_grey_8dp)
-    }
-}
 
 fun WebView.loadHtmlStringContent(htmlContent: String) {
     settings.javaScriptEnabled = true
@@ -948,7 +834,7 @@ fun TextView.setHtmlString(str: String) {
 
 
 // Extension function only meant for this Xml = item_tier_tooltip_detail
-fun Balloon.setTooltipUi(headingTextString: String? = null , descriptionTextString: String? = null , font: Int = R.font.poppins_semibold, isHtml: Boolean = false, headingTextSize: Float? = null) {
+/*fun Balloon.setTooltipUi(headingTextString: String? = null , descriptionTextString: String? = null , font: Int = R.font.poppins_semibold, isHtml: Boolean = false, headingTextSize: Float? = null) {
     val typeface = ResourcesCompat.getFont(this.getContentView().context, font)
     val headingText = this.getContentView()
         .findViewById<TextView>(R.id.tv_tier_tooltip_detail_heading)
@@ -975,7 +861,7 @@ fun Balloon.setTooltipUi(headingTextString: String? = null , descriptionTextStri
     } else {
         descriptionText.hideView()
     }
-}
+}*/
 
     fun TextView.changeFont(style: Int?, textSize: Float?) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

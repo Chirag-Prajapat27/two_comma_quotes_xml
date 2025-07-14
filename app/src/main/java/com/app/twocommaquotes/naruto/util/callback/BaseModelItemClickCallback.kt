@@ -1,10 +1,10 @@
-package com.projectdelta.naruto.util.callback
+package com.app.twocommaquotes.naruto.util.callback
 
 import androidx.cardview.widget.CardView
-import com.projectdelta.naruto.data.model.entity.BaseModel
+import com.app.twocommaquotes.naruto.util.model.BaseModelNaruto
 
 interface BaseModelItemClickCallback {
 
-	fun onItemClick(item: BaseModel, itemCard: CardView)
+	fun onItemClick(item: BaseModelNaruto, itemCard: CardView)
 
 }

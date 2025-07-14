@@ -6,17 +6,24 @@ plugins {
     id 'kotlin-android'
 }
 
+def properties = new Properties()
+properties.load(project.rootProject.file("config.properties").newDataInputStream())
+
 android {
-    compileSdk 32
+    namespace 'com.app.twocommaquotes'
+    compileSdk 35
 
     defaultConfig {
         applicationId "com.app.twocommaquotes"
-        minSdk 21
-        targetSdk 32
+        minSdk 24
+        targetSdk 35
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "BASE_URL", "\"${properties.getProperty("BASE_URL")}\""
+
     }
 
     buildTypes {
@@ -26,26 +33,29 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
     buildFeatures {
-        dataBinding  true
+        buildConfig true
+        dataBinding true
+        viewBinding true
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '11'
     }
 }
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.5.0'
-    implementation 'com.google.android.material:material:1.6.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.core:core-ktx:1.12.0'
+    implementation 'androidx.appcompat:appcompat:1.7.1'
+    implementation 'com.google.android.material:material:1.12.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.9.0'
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
 
     //dimensions
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
@@ -61,8 +71,8 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.3'
 
     //hilt
-    implementation "com.google.dagger:hilt-android:2.38.1"
-    kapt "com.google.dagger:hilt-android-compiler:2.38.1"
+    implementation "com.google.dagger:hilt-android:2.48.1"
+    kapt "com.google.dagger:hilt-android-compiler:2.48.1"
 
     //coroutine dependency
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
@@ -73,9 +83,23 @@ dependencies {
 
     implementation 'androidx.fragment:fragment-ktx:1.5.3'
 
-    //Pagination
-//    implementation "androidx.paging:paging-runtime:3.1.1"
+    implementation "com.jakewharton.timber:timber:4.7.1"
 
+//================================ NARUTO ============================================================
+    //Pagination
+    def paging_version = "3.0.1"
+    implementation "androidx.paging:paging-runtime-ktx:$paging_version"
+
+    // webView
+    implementation "androidx.browser:browser:1.3.0"
+
+    // Navigation components
+    def nav_version = "2.4.0-alpha01"
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
+
+//====================== NARUTO =======================================================================
     //share preference
 //    implementation 'androidx.preference:preference-ktx:1.2.0'
 }

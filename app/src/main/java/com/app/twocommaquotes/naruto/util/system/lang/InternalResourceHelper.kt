@@ -1,4 +1,4 @@
-package com.projectdelta.naruto.util.system.lang
+package com.app.twocommaquotes.naruto.util.system.lang
 
 import android.content.Context
 import android.content.res.Resources

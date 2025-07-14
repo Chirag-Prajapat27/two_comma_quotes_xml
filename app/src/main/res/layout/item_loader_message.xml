@@ -14,7 +14,7 @@
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:indeterminateTint="@color/colorTheme" />
+            android:indeterminateTint="@color/lightBlue" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_txtMessage"

@@ -24,14 +24,14 @@ class PermissionCheck {
         }
 
         /**
-         * Check/Request a permission and call the callback methods of permission handler accordingly.
+         * Check/Request a permission and call the callback methods of the permission handler accordingly.
          *
-         * @param context    the android context.
+         * @param context the Android context.
          * @param permission the permission to be requested.
-         * @param rationale  Explanation to be shown to user if s/he has denied permission earlier.
+         * @param rationale Explanation to be shown to the user if s/he has denied permission earlier.
          * If this parameter is null, permissions will be requested without showing
          * the rationale dialog.
-         * @param handler    The permission handler object for handling callbacks of various user
+         * @param handler The permission handler object for handling callbacks of various user
          * actions such as permission granted, permission denied, etc.
          */
         fun check(
@@ -52,12 +52,12 @@ class PermissionCheck {
         }
 
         /**
-         * Check/Request a permission and call the callback methods of permission handler accordingly.
+         * Check/Request a permission and call the callback methods of the permission handler accordingly.
          *
-         * @param context     the android context.
+         * @param context the Android context.
          * @param permission  the permission to be requested.
-         * @param rationaleId The string resource id of the explanation to be shown to user if s/he has
-         * denied permission earlier. If resource is not found, permissions will be
+         * @param rationaleId The string resource id of the explanation to be shown to the user if s/he has
+         * denied permission earlier. If the resource is not found, permissions will be
          * requested without showing the rationale dialog.
          * @param handler     The permission handler object for handling callbacks of various user
          * actions such as permission granted, permission denied, etc.

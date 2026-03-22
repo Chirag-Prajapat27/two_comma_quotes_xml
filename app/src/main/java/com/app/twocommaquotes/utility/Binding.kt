@@ -1,6 +1,5 @@
 package com.app.twocommaquotes.utility
 
-
 import android.view.View
 import android.view.View.*
 import androidx.appcompat.widget.AppCompatImageView
@@ -23,7 +22,6 @@ fun AppCompatTextView.setMRPPrice(price: Any?) {
 
 @BindingAdapter("setImage")
 fun AppCompatImageView.setImage(url: String?) {
-
     if (!url.isNullOrEmpty()) {
         Glide.with(this).load(url)
             .placeholder(R.drawable.ic_launcher_background).into(this)
@@ -58,7 +56,6 @@ fun AppCompatImageView.selectAddress(selected: Int) {
         setImageDrawable(
             ResourcesCompat.getDrawable(resources, R.drawable.ic_launcher_foreground, null)
         )
-
     }
 }
 
